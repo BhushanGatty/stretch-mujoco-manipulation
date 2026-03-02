@@ -1,0 +1,20 @@
+<mujoco model="mobile_robot">
+  <compiler angle="degree" coordinate="local"/>
+  <option timestep="0.01"/>
+
+  <worldbody>
+    <body name="robot" pos="0 -2 0.1">
+      <geom type="box" size="0.2 0.2 0.1" rgba="0 0 1 1"/>
+
+      <joint name="x" type="slide" axis="1 0 0"/>
+      <joint name="y" type="slide" axis="0 1 0"/>
+
+      <camera name="robot_cam" pos="0 0 0.3" euler="0 0 0"/>
+    </body>
+  </worldbody>
+
+  <actuator>
+    <motor joint="x" ctrlrange="-1 1"/>
+    <motor joint="y" ctrlrange="-1 1"/>
+  </actuator>
+</mujoco>

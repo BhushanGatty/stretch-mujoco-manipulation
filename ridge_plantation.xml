@@ -1,0 +1,52 @@
+<mujoco model="ridge_plantation">
+    <compiler angle="degree" coordinate="local"/>
+    <option timestep="0.01" gravity="0 0 -9.8"/>
+
+    <asset>
+        <material name="ground_mat" rgba="0.2 0.2 0.2 1"/>
+        <material name="soil_mat" rgba="0.4 0.25 0.1 1"/>
+        <material name="berry_mat" rgba="1 0 0 1"/>
+    </asset>
+
+    <worldbody>
+        <!-- Single light for scene -->
+        <light pos="0 1 2" dir="0 0 -1" diffuse="1 1 1"/>
+
+        <!-- Main camera looking at ridge -->
+        <camera name="main_cam" pos="0 -4 3" euler="30 0 0"/>
+
+        <!-- Ground -->
+        <geom type="plane" size="10 10 0.1" material="ground_mat"/>
+
+        <!-- Soil ridge -->
+        <geom type="box" size="5 0.4 0.2" pos="0 1 0.2" material="soil_mat"/>
+
+        <!-- Strawberries -->
+        <body name="berry1" pos="-2 1 0.5">
+            <geom type="sphere" size="0.05" material="berry_mat"/>
+        </body>
+
+        <body name="berry2" pos="-1 1 0.5">
+            <geom type="sphere" size="0.05" material="berry_mat"/>
+        </body>
+
+        <body name="berry3" pos="0 1 0.5">
+            <geom type="sphere" size="0.05" material="berry_mat"/>
+        </body>
+
+        <!-- Simple robot base -->
+        <body name="robot" pos="0 -2 0.1">
+            <geom type="box" size="0.2 0.2 0.1" rgba="0 0 1 1"/>
+
+            <joint name="x" type="slide" axis="1 0 0"/>
+            <joint name="y" type="slide" axis="0 1 0"/>
+        </body>
+
+    </worldbody>
+
+    <actuator>
+        <motor joint="x" ctrlrange="-1 1"/>
+        <motor joint="y" ctrlrange="-1 1"/>
+    </actuator>
+
+</mujoco>

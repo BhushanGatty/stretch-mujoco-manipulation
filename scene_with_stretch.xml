@@ -1,0 +1,118 @@
+<mujoco model="farm_scene_with_stretch_fixed">
+
+    <compiler angle="degree" coordinate="local"
+          meshdir="mujoco_menagerie/hello_robot_stretch/assets"/>
+
+    <option timestep="0.005" gravity="0 0 -9.8" integrator="RK4">
+        <flag contact="enable"/>
+    </option>
+
+    <!-- Include Stretch robot -->
+    <include file="mujoco_menagerie/hello_robot_stretch/stretch.xml"/>
+
+    <asset>
+        <material name="ground_mat" rgba="0.2 0.2 0.2 1"/>
+        <material name="soil_mat" rgba="0.4 0.25 0.1 1"/>
+        <material name="berry_mat" rgba="0.9 0.1 0.1 1"/>
+    </asset>
+
+    <worldbody>
+
+        <!-- Lighting -->
+        <light pos="0 1 3" dir="0 0 -1" diffuse="0.8 0.8 0.8"/>
+        <light pos="3 -2 2" dir="-1 0.5 -1" diffuse="0.6 0.6 0.6"/>
+        
+        <!-- Cameras -->
+        <camera name="main_cam" pos="0 -4 3" euler="30 0 0"/>
+        <camera name="top_view" pos="0 0 5" euler="0 0 0"/>
+        <camera name="side_view" pos="5 0 1.5" euler="0 0 90"/>
+
+        <!-- Ground plane with high friction -->
+        <geom name="floor" type="plane" size="10 10 0.1" material="ground_mat" 
+              friction="2 0.1 0.05" contype="1" conaffinity="1"/>
+
+        <!-- Soil Ridge (Raised bed) -->
+        <geom name="soil_ridge" type="box" size="5 0.4 0.15" pos="0 1 0.15" 
+              material="soil_mat" friction="2 0.1 0.05" contype="1" conaffinity="1"/>
+
+        <!-- PHYSICS-ENABLED STRAWBERRIES -->
+        <!-- Position them ABOVE the soil so they settle properly -->
+        <!-- contype=2, conaffinity=1 means they collide with ground but not each other -->
+        
+        <body name="berry1" pos="-1.5 1.0 0.5">
+            <freejoint/>
+            <inertial pos="0 0 0" mass="0.015" diaginertia="0.00001 0.00001 0.00001"/>
+            <geom name="berry1_geom" type="sphere" size="0.04" material="berry_mat" 
+                  friction="1.5 0.1 0.05" contype="2" conaffinity="1" 
+                  solimp="0.9 0.95 0.001" solref="0.02 1"/>
+            <site name="berry1_attach" pos="0 0 0" size="0.001"/>
+        </body>
+
+        <body name="berry2" pos="0 1.2 0.5">
+            <freejoint/>
+            <inertial pos="0 0 0" mass="0.015" diaginertia="0.00001 0.00001 0.00001"/>
+            <geom name="berry2_geom" type="sphere" size="0.04" material="berry_mat" 
+                  friction="1.5 0.1 0.05" contype="2" conaffinity="1"
+                  solimp="0.9 0.95 0.001" solref="0.02 1"/>
+            <site name="berry2_attach" pos="0 0 0" size="0.001"/>
+        </body>
+
+        <body name="berry3" pos="1.5 1.0 0.5">
+            <freejoint/>
+            <inertial pos="0 0 0" mass="0.015" diaginertia="0.00001 0.00001 0.00001"/>
+            <geom name="berry3_geom" type="sphere" size="0.04" material="berry_mat" 
+                  friction="1.5 0.1 0.05" contype="2" conaffinity="1"
+                  solimp="0.9 0.95 0.001" solref="0.02 1"/>
+            <site name="berry3_attach" pos="0 0 0" size="0.001"/>
+        </body>
+
+        <body name="berry4" pos="-0.75 0.8 0.5">
+            <freejoint/>
+            <inertial pos="0 0 0" mass="0.015" diaginertia="0.00001 0.00001 0.00001"/>
+            <geom name="berry4_geom" type="sphere" size="0.04" material="berry_mat" 
+                  friction="1.5 0.1 0.05" contype="2" conaffinity="1"
+                  solimp="0.9 0.95 0.001" solref="0.02 1"/>
+            <site name="berry4_attach" pos="0 0 0" size="0.001"/>
+        </body>
+
+        <body name="berry5" pos="0.75 1.2 0.5">
+            <freejoint/>
+            <inertial pos="0 0 0" mass="0.015" diaginertia="0.00001 0.00001 0.00001"/>
+            <geom name="berry5_geom" type="sphere" size="0.04" material="berry_mat" 
+                  friction="1.5 0.1 0.05" contype="2" conaffinity="1"
+                  solimp="0.9 0.95 0.001" solref="0.02 1"/>
+            <site name="berry5_attach" pos="0 0 0" size="0.001"/>
+        </body>
+
+    </worldbody>
+
+    <!-- MAGNET WELD CONSTRAINTS -->
+    <!-- These attach berries to gripper when activated -->
+    <equality>
+        <weld name="magnet_berry1" active="false" 
+              body1="link_gripper_finger_right" 
+              body2="berry1" 
+              solref="0.02 1" solimp="0.9 0.95 0.001"/>
+              
+        <weld name="magnet_berry2" active="false" 
+              body1="link_gripper_finger_right" 
+              body2="berry2" 
+              solref="0.02 1" solimp="0.9 0.95 0.001"/>
+              
+        <weld name="magnet_berry3" active="false" 
+              body1="link_gripper_finger_right" 
+              body2="berry3" 
+              solref="0.02 1" solimp="0.9 0.95 0.001"/>
+              
+        <weld name="magnet_berry4" active="false" 
+              body1="link_gripper_finger_right" 
+              body2="berry4" 
+              solref="0.02 1" solimp="0.9 0.95 0.001"/>
+              
+        <weld name="magnet_berry5" active="false" 
+              body1="link_gripper_finger_right" 
+              body2="berry5" 
+              solref="0.02 1" solimp="0.9 0.95 0.001"/>
+    </equality>
+
+</mujoco>

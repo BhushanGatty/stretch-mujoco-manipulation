@@ -13,6 +13,9 @@
 
 **Kisan-Drishti** is a vernacular-first robotic farming system that enables farmers to control agricultural robots using voice commands in their native languages (Hindi, Kannada, Tamil, etc.). This repository contains the MuJoCo physics simulation for precision strawberry harvesting using the Hello Robot Stretch 2.
 
+## Project Visualization
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/3bb9f0e3-7e2e-4f3e-9e1e-fbed730e6f06" />
+
 ### Why This Matters
 
 - **🌾 Accessibility**: Farmers can control robots in their own language without technical training
@@ -53,12 +56,6 @@
 - Step-by-step execution monitoring
 
 ---
-
-## 🎬 Demo
-
-### Video Demonstration
-
-[Upload your screencast here]
 
 ### Example Workflow
 
